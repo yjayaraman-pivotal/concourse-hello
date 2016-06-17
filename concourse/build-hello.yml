@@ -3,7 +3,7 @@ platform: linux
 image_resource:
   type: docker-image
   source:
-    repository: l2as/maven3-jdk7-git
+    repository: stephenreed/jenkins-java8-maven-git
     tag: latest
 inputs:
 - name: HelloJavaRepo1
