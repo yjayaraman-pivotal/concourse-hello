@@ -1,2 +1,2 @@
 #!/bin/sh
-mvn -f HelloJavaRepo1/pom.xml clean package
+HelloJavaRepo1/mvnw -f HelloJavaRepo1/pom.xml clean package
