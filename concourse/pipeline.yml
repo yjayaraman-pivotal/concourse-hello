@@ -51,9 +51,9 @@ jobs:
     trigger: true
   - get: version
     params: {pre: rc}
-  - task: build-artifact
-    file: hello/concourse/tasks/build-artifact.yml
+  - task: build
+    file: hello/concourse/tasks/build.yml
   - put: candidate-release
-    params: {file: built-artifact/hello-*.jar}
+    params: {file: build/hello-*.jar}
   - put: version
     params: {file: version/number}
