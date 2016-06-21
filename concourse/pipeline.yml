@@ -5,6 +5,35 @@ resources:
   source:
     uri: {{github-uri}}
     branch: {{github-branch}}
+
+- name: version
+  type: semver
+  source:
+    bucket: {{s3-bucket-version}}
+    initial_version: 1.0.0-rc.0
+    key: current-version
+    access_key_id: {{s3-access-key-id}}
+    secret_access_key: {{s3-secret-access-key}}
+    endpoint: {{s3-endpoint}}
+
+- name: candidate-release
+  type: s3
+  source:
+    bucket: {{s3-bucket-release-candidates}}
+    regexp: hello-(.*).jar
+    access_key_id: {{s3-access-key-id}}
+    secret_access_key: {{s3-secret-access-key}}
+    endpoint: {{s3-endpoint}}
+
+- name: final-release
+  type: s3
+  source:
+    bucket: {{s3-bucket-releases}}
+    regexp: hello-(.*).jar
+    access_key_id: {{s3-access-key-id}}
+    secret_access_key: {{s3-secret-access-key}}
+    endpoint: {{s3-endpoint}}
+
 jobs:
 - name: unit-test
   serial: true
@@ -13,3 +42,18 @@ jobs:
     trigger: true
   - task: unit-test
     file: hello/concourse/tasks/unit-test.yml
+
+- name: build-rc
+  serial_groups: [version]
+  plan:
+  - get: hello
+    passed: [unit-test]
+    trigger: true
+  - get: version
+    params: {pre: rc}
+  - task: build-artifact
+    file: hello/concourse/tasks/build-artifact.yml
+  - put: candidate-release
+    params: {file: built-artifact/hello-*.jar}
+  - put: version
+    params: {file: version/number}

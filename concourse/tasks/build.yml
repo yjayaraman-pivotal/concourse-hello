@@ -1,0 +1,23 @@
+platform: linux
+image_resource:
+  type: docker-image
+  source:
+    repository: stephenreed/jenkins-java8-maven-git
+    tag: latest
+
+inputs:
+  - name: hello
+  - name: version
+
+outputs:
+  - name: build
+
+run:
+  path: ./hello/concourse/tasks/build.sh
+  args: [
+    --input-dir, hello,
+    --output-dir, build,
+    --version-file, version/number,
+    --artifactId, hello,
+    --packaging, jar
+  ]
