@@ -1,15 +1,14 @@
 ---
 resources:
-- name: HelloJavaRepo1
+- name: hello
   type: git
   source:
     uri: https://github.com/yjayaraman-pivotal/concourse-hello
     branch: master
 jobs:
-- name: deploy-hello
-  serial: true
+- name: unit-test
   plan:
-  - get: HelloJavaRepo1
+  - get: hello
     trigger: true
-  - task: build-hello
-    file: HelloJavaRepo1/concourse/build-hello.yml
+  - task: unit-test
+    file: hello/concourse/tasks/unit-test.yml
