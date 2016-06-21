@@ -1,0 +1,16 @@
+github-uri: https://github.com/yjayaraman-pivotal/concourse-hello
+github-branch: master
+s3-access-key-id: AKIAIXRVPE6GW45YDGHA  # AWS or S3 compatible access key id
+s3-secret-access-key: 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  # AWS or S3 compatible secret access key
+s3-endpoint: s3.amazonaws.com
+s3-bucket-version: hello-releases  # Create and change this to your own S3 bucket
+s3-bucket-releases: hello-releases  # Create and change this to your own S3 bucket
+s3-bucket-release-candidates: hello-release-candidates  # Create and change this to your own S3 bucket
+maven-opts: # -Xms256m -Xmx512m
+maven-config: # -s path/to/settings.xml
+cf-api: https://api.local.micropcf.io  # Change the following to match your Cloud Foundry environment
+cf-username: admin
+cf-password: admin
+cf-org: micropcf-org
+cf-space: micropcf-space
+cf-manifest-host: hello-ci
