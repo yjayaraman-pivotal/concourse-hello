@@ -3,8 +3,8 @@ platform: linux
 image_resource:
   type: docker-image
   source:
-    repository: stephenreed/jenkins-java8-maven-git
-    tag: latest
+    repository: java
+    tag: 8
 inputs:
 - name: HelloJavaRepo1
 outputs:
@@ -15,5 +15,5 @@ run:
   #path: pwd
   #path: mvn
   #args: ["-f", "ProductServiceRepo1/photo-service/pom.xml", "-DskipTests=true", "package"]
-  path: HelloJavaRepo1/concourse/concourse-build.sh
+  path: HelloJavaRepo1/concourse/tasks/concourse-build.sh
 
