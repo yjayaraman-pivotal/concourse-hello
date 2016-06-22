@@ -19,7 +19,7 @@ run:
     --input-dir, candidate-release,
     --output-dir, prepare-integration,
     --version-file, version/number,
-    --manifest, pcfdemo/manifest.yml,
+    --manifest, hello/manifest.yml,
     --artifactId, hello,
     --packaging, jar
   ]

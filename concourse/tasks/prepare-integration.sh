@@ -63,8 +63,12 @@ if [ -z "$packaging" ]; then
 fi
 
 version=`cat $versionFile`
-artifactName="${artifactId}-${version}.${packaging}"
+artifactFile="${inputDir}/${artifactId}-${version}.${packaging}"
 
 echo $version
-echo $artifactName
+echo $artifactFile
+
+if [ ! -f "$artifactFile" ]; then
+  error_and_exit "missing artifactFile file: $artifactFile"
+fi
 
