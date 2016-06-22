@@ -1,0 +1,4 @@
+---
+applications:
+- name: hello-yj
+  memory: 512M 
