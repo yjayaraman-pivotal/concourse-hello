@@ -59,7 +59,7 @@ version=`cat $versionFile`
 artifactName="${artifactId}-${version}.${packaging}"
 
 cd $inputDir
-mvn clean package -DartifactId=$artifactName -DversionNumber=$version
+mvn clean package -Dfinal=$artifactName -Dversion=$version
 
 # Copy war file to concourse output folder
 cd ..
