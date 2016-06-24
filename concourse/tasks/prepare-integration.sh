@@ -86,9 +86,9 @@ cp $manifest $outputManifest
 # the path in the manifest is always relative to the manifest itself
 sed -i -- "s|path: .*$|path: $artifactName|g" $outputManifest
 
-if [ ! -z "$version" ]; then
+
   sed -i "s|host: .*$|&-$version|g" $outputManifest
-fi
+
 
 cat $outputManifest
 
