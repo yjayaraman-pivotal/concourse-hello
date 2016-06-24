@@ -87,7 +87,7 @@ cp $manifest $outputManifest
 sed -i -- "s|path: .*$|path: $artifactName|g" $outputManifest
 
 if [ ! -z "$hostname" ]; then
-  sed -i "s|host: .*$|host: ${hostname}|g" $outputManifest
+  sed -i "s|host: .*$|&-$version|g" $outputManifest
 fi
 
 cat $outputManifest
