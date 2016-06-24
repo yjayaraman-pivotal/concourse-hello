@@ -2,3 +2,6 @@
 applications:
 - name: hello-yj
   memory: 512M 
+  instances: 1
+  host: hello-yj
+  path: ./target/hello.jar
