@@ -64,6 +64,7 @@ fi
 
 version=`cat $versionFile`
 artifactName="${artifactId}-${version}.${packaging}"
+hostsuffix=${version//./_}
 
 echo $version
 echo $artifactName
@@ -87,7 +88,7 @@ cp $manifest $outputManifest
 sed -i -- "s|path: .*$|path: $artifactName|g" $outputManifest
 
 
-  sed -i "s|host: .*$|&-$version|g" $outputManifest
+sed -i "s|host: .*$|&-$hostsuffix|g" $outputManifest
 
 
 cat $outputManifest
