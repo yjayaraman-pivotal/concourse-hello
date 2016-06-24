@@ -34,6 +34,16 @@ resources:
     secret_access_key: {{s3-secret-access-key}}
     endpoint: {{s3-endpoint}}
 
+- name: cf
+  type: cf
+  source:
+    api: {{cf-api}}
+    username: {{cf-username}}
+    password: {{cf-password}}
+    organization: {{cf-org}}
+    space: {{cf-space}}
+    skip_cert_check: true
+
 jobs:
 - name: unit-test
   serial: true
@@ -57,3 +67,19 @@ jobs:
     params: {file: build/hello-*.jar}
   - put: version
     params: {file: version/number}
+
+- name: prepare-integration
+  serial_groups: [version]
+  plan:
+  - get: hello
+    passed: [build-rc]
+    trigger: true
+  - get: candidate-release
+    passed: [build-rc]
+    trigger: true
+  - get: version
+  - task: prepare-integration
+    file: hello/concourse/tasks/prepare-integration.yml
+  - put: cf
+    params:
+          manifest: prepare-integration/manifest.yml
