@@ -64,7 +64,7 @@ fi
 
 version=`cat $versionFile`
 artifactName="${artifactId}-${version}.${packaging}"
-hostsuffix=${version//h/a}
+hostsuffix=${version//1/0}
 
 echo $version
 echo $artifactName
