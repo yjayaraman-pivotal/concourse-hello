@@ -63,12 +63,32 @@ if [ -z "$packaging" ]; then
 fi
 
 version=`cat $versionFile`
-artifactFile="${inputDir}/${artifactId}-${version}.${packaging}"
+artifactName="${artifactId}-${version}.${packaging}"
 
 echo $version
-echo $artifactFile
+echo $artifactName
 
-if [ ! -f "$artifactFile" ]; then
-  error_and_exit "missing artifactFile file: $artifactFile"
+inputArtifact="$inputDir/$artifactName"
+outputArtifact="$outputDir/$artifactName"
+
+
+if [ ! -f "$inputArtifact" ]; then
+  error_and_exit "can not find artifact: $inputArtifact"
 fi
+
+cp $inputArtifact $outputArtifact
+
+# copy the manifest to the output directory and process it
+outputManifest=$outputDir/manifest.yml
+
+cp $manifest $outputManifest
+
+# the path in the manifest is always relative to the manifest itself
+sed -i -- "s|path: .*$|path: $artifactName|g" $outputManifest
+
+if [ ! -z "$hostname" ]; then
+  sed -i "s|host: .*$|host: ${hostname}|g" $outputManifest
+fi
+
+cat $outputManifest
 
